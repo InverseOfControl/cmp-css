@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://code.alibabatech.com/schema/dubbo
+	http://code.alibabatech.com/schema/dubbo/dubbo.xsd
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/tx 
+	http://www.springframework.org/schema/tx/spring-tx.xsd"
+	default-lazy-init="false" >
+	
+	<!-- 提供方应用信息，用于计算依赖关系 -->
+    <dubbo:application name="${spring.application.name}" />
+
+    <!-- 注册中心暴露服务地址 -->
+    <!-- <dubbo:registry address="multicast://224.5.6.7:1234" /> -->
+
+	<!-- 调用dubbo服务，打印traceId -->
+	<dubbo:provider filter="loggerInvokerFilter"/>
+
+	<!-- <dubbo:registry protocol="zookeeper" address="10.170.219.98:2181,10.173.55.173:2181" /> -->
+    <dubbo:registry protocol="zookeeper" address="${zookeeper.address}" />
+
+    <!-- 暴露服务 -->
+    <dubbo:protocol name="dubbo" port="${dubbo.port}" />
+
+	<!-- 清算订单 -->
+	<dubbo:service interface="com.ipaylinks.cmp.css.facade.LiquidationOrderFacade"
+				   ref="liquidationOrderFacade" timeout="${dubbo.common.timeout?:6000}" version="${dubbo.cmp.css.version?:1.0}" />
+
+	<!-- 风控订单 -->
+	<dubbo:service interface="com.ipaylinks.cmp.css.facade.RiskOrderFacade"
+				   ref="riskOrderFacade" timeout="${dubbo.common.timeout?:6000}" version="${dubbo.cmp.css.version?:1.0}" />
+
+	<!-- 渠道流水 -->
+	<dubbo:service interface="com.ipaylinks.cmp.css.facade.ChannelOrderFacade"
+				   ref="channelOrderFacade" timeout="${dubbo.common.timeout?:6000}" version="${dubbo.cmp.css.version?:1.0}" />
+
+	<!-- 引入一个bean，先放这里吧，要不然还要新建个配置文件 -->
+	<bean class="net.sf.oval.integration.spring.SpringInjector" />
+
+	<!-- 查询结算明细 -->
+	<dubbo:service interface="com.ipaylinks.cmp.css.facade.QuerySettlementDetailFacade"
+				   ref="querySettlementDetailFacade" timeout="${dubbo.common.timeout?:6000}" version="${dubbo.cmp.css.version?:1.0}" />
+
+	<!-- 查询结算单 -->
+	<dubbo:service interface="com.ipaylinks.cmp.css.facade.QuerySettlementOrderFacade"
+				   ref="querySettlementOrderFacade" timeout="${dubbo.common.timeout?:6000}" version="${dubbo.cmp.css.version?:1.0}" />
+
+	<!-- 查询结算汇总信息 -->
+	<dubbo:service interface="com.ipaylinks.cmp.css.facade.QuerySettlementSummaryFacade"
+				   ref="querySettlementSummaryFacade" timeout="${dubbo.common.timeout?:6000}" version="${dubbo.cmp.css.version?:1.0}" />
+
+	<!-- 查询商户手续费 -->
+	<dubbo:service interface="com.ipaylinks.cmp.css.facade.QueryMerchantFeeFacade"
+				   ref="queryMerchantFeeFacade" timeout="${dubbo.common.timeout?:6000}" version="${dubbo.cmp.css.version?:1.0}" />
+
+	<!-- 异常流程补处理 -->
+	<dubbo:service interface="com.ipaylinks.cmp.css.facade.RepairExceptionProcessFacade"
+				   ref="repairExceptionProcessFacade" timeout="${dubbo.common.timeout?:6000}" version="${dubbo.cmp.css.version?:1.0}" />
+
+</beans>

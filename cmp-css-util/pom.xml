@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.ipaylinks.cmp.css</groupId>
+		<artifactId>cmp-css</artifactId>
+		<version>1.0-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+
+	<groupId>com.ipaylinks.cmp.css.util</groupId>
+	<artifactId>cmp-css-util</artifactId>
+	<packaging>jar</packaging>
+	<name>cmp-css-util</name>
+	<url>http://maven.apache.org</url>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<dependencies>
+		<dependency>
+            <groupId>com.ipaylinks.cmp.css.facade</groupId>
+            <artifactId>cmp-css-facade</artifactId>
+        </dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.ipaylinks</groupId>
+			<artifactId>common</artifactId>
+		</dependency>
+	</dependencies>
+</project>

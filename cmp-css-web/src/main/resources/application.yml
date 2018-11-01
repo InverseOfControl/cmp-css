@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: cmp-css
+  boot:
+    admin:
+      client:
+        service-base-url: http://localhost:8081
+mybatis:
+  mapperLocations: classpath:mapper/*.xml
+#server:
+# context-path: /css
+#  port: 8081
+#dubbo:
+#  port: 20004

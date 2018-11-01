@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://code.alibabatech.com/schema/dubbo 
+	http://code.alibabatech.com/schema/dubbo/dubbo.xsd"
+	default-autowire="byName">
+
+	<!-- 算费策略查询 -->
+	<dubbo:reference id="chargeStrategyQueryFacade" interface="com.ipaylinks.ccs.facade.biz.ChargeStrategyQueryFacade"
+					 retries='${dubbo.common.retry?:1}' timeout="${dubbo.common.timeout?:6000}" version="${dubbo.ccs.version?:1.0}" check="false"/>
+
+	<!-- 商户费用计算 -->
+	<dubbo:reference id="merchChargeCalcFacade" interface="com.ipaylinks.ccs.facade.biz.MerchChargeCalcFacade"
+					 retries='${dubbo.common.retry?:1}' timeout="${dubbo.common.timeout?:6000}" version="${dubbo.ccs.version?:1.0}" check="false"/>
+
+	<!-- 渠道费用计算 -->
+	<dubbo:reference id="channelChargeCalcFacade" interface="com.ipaylinks.ccs.facade.biz.ChannelChargeCalcFacade"
+					 retries='${dubbo.common.retry?:1}' timeout="${dubbo.common.timeout?:6000}" version="${dubbo.ccs.version?:1.0}" check="false"/>
+					 
+	<!--查询商户结算信息 -->
+	<dubbo:reference id="merchantSettlementConfigFacade" interface="com.ipaylinks.mcs.facade.MerchantSettlementConfigFacade"
+					 retries='${dubbo.common.retry?:1}' timeout="${dubbo.common.timeout?:6000}" version="${dubbo.ccs.version?:1.0}" check="false"/>
+
+	<!-- 商户清算汇率查询 -->
+	<dubbo:reference id="settlementRateQueryRpc" interface="com.ipay.commonService.rate.rpc.SettlementRateQueryRpc"
+					 retries='${dubbo.common.retry?:1}' timeout="${dubbo.common.timeout?:6000}" version="1.0" check="false" />
+
+	<!-- 商户清算汇率查询 -->
+	<dubbo:reference id="transactionBaseRateQueryRpc" interface="com.ipay.commonService.rate.rpc.TransactionBaseRateQueryRpc"
+					 retries='${dubbo.common.retry?:1}' timeout="${dubbo.common.timeout?:6000}" version="1.0" check="false" />
+					 
+ 	<!-- 商户记账规则查询 -->
+	<dubbo:reference id="accountingRuleFacade" interface="com.ipaylinks.acct.facade.AccountingRuleFacade"
+					 retries='${dubbo.common.retry?:1}' timeout="${dubbo.common.timeout?:6000}" version="1.0" check="false" />
+					 
+ 	<!-- 商户入账接口 -->
+	<dubbo:reference id="accountingFacade" interface="com.ipaylinks.acct.facade.AccountingFacade"
+					 retries='${dubbo.common.retry?:1}' timeout="${dubbo.common.timeout?:6000}" version="1.0" check="false" />
+
+	<!-- 渠道流水推送 -->
+	<dubbo:reference id="verifyFacade" interface="com.ipaylinks.verify.facade.VerifyFacade"
+					 retries='${dubbo.common.retry?:1}' timeout="${dubbo.common.timeout?:6000}" version="1.0" check="false" />
+
+</beans>
